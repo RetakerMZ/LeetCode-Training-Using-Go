@@ -100,10 +100,49 @@ func longestCommonPrefix(strs []string) string {
 	return strs[0]
 }
 
+// 20. Valid Parentheses
+func isValid(s string) bool {
+	//if s has odd character return false
+	if len(s)%2 != 0 {
+		return false
+	}
+	//if the 1st character of s is close bracket return false
+	if s[0] == ')' || s[0] == '}' || s[0] == ']' {
+		return false
+	}
+	var openBracket []byte
+	//closeToOpening to get open bracket using close bracket
+	closeToOpening := map[byte]byte{
+		')': '(',
+		'}': '{',
+		']': '[',
+	}
+	//loop s
+	for _, v := range s {
+		//if byte(v) is in closeToOpening its a open bracket otherwise its close bracket
+		if isOpen, isClosed := closeToOpening[byte(v)]; !isClosed {
+			//if its a open bracket append it to openBracket
+			openBracket = append(openBracket, byte(v))
+		} else {
+			//if its not a open bracket
+			//we check if open bracket is empty if it is empty return false
+			//we check again if the last array of openBracket is not equal to isOpen return false
+			if len(openBracket) == 0 || openBracket[len(openBracket)-1] != isOpen {
+				return false
+			}
+			//removing last array of openBracket because we found the matching pair for the close bracket
+			openBracket = openBracket[:len(openBracket)-1]
+		}
+	}
+	//finally, we check if there is still left over openBracket
+	return len(openBracket) == 0
+}
+
 func main() {
 	// twoSums := twoSum([]int{2, 7, 11, 15}, 9)
 	// IsPalindrome := isPalindrome(2222)
 	// RomanToInt := romanToInt("MDCCCLXXXIV")
-	LongestCommonPrefix := longestCommonPrefix([]string{"abc", "ab", "abc"})
-	fmt.Println(LongestCommonPrefix)
+	// LongestCommonPrefix := longestCommonPrefix([]string{"abc", "ab", "abc"})
+	isValid := isValid("()")
+	fmt.Println(isValid)
 }

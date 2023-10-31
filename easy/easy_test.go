@@ -24,3 +24,8 @@ func TestLongestCommonPrefix(t *testing.T) {
 	longestCommonPrefix := longestCommonPrefix([]string{"flower", "flow", "flight"})
 	fmt.Println(longestCommonPrefix)
 }
+
+func TestIsValid(t *testing.T) {
+	isValid := isValid("({})[{}]({([])})")
+	fmt.Println(isValid)
+}
