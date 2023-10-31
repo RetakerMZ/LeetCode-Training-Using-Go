@@ -7,7 +7,7 @@ func twoSum(nums []int, target int) []int {
 	//Making hash table
 	/*
 		Hashtable :
-		Index (the required number will be the index)
+		Index (the value of current nums will be the index)
 		Value (the index of current nums will be the value)
 	*/
 	hashMaps := make(map[int]int)
@@ -20,8 +20,8 @@ func twoSum(nums []int, target int) []int {
 		if val, exists := hashMaps[reqNums]; exists {
 			return []int{val, i}
 		}
-		//if the index reqNums is not found in hash maps we put the index reqNums in hash maps with the current index of nums as value
-		hashMaps[reqNums] = i
+		//if the index reqNums is not found in hash maps we put the value of current nums as index in hash maps with the current index of nums as value
+		hashMaps[v] = i
 	}
 	return []int{}
 }
@@ -81,8 +81,8 @@ func romanToInt(s string) int {
 }
 
 func main() {
-	// twoSums := twoSum([]int{3, 2, 4}, 6)
+	twoSums := twoSum([]int{2, 7, 11, 15}, 9)
 	// isPalindrome := isPalindrome(2222)
-	romanToInt := romanToInt("MDCCCLXXXIV")
-	fmt.Println(romanToInt)
+	// romanToInt := romanToInt("MDCCCLXXXIV")
+	fmt.Println(twoSums)
 }
