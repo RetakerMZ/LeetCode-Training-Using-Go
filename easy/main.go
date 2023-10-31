@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 // 1. TwoSums, Using Hashtable solution
-func twoSum(nums []int, target int) []int {
+func TwoSum(nums []int, target int) []int {
 	//Making hash table
 	/*
 		Hashtable :
@@ -27,7 +27,7 @@ func twoSum(nums []int, target int) []int {
 }
 
 // 9. Palindrome Number, Getting each digit of x from last and compare it
-func isPalindrome(x int) bool {
+func IsPalindrome(x int) bool {
 	//negative number is guarantee not gonna be palindrome
 	if x < 0 {
 		return false
@@ -55,7 +55,7 @@ func isPalindrome(x int) bool {
 }
 
 // 13. Roman to Integer
-func romanToInt(s string) int {
+func RomanToInt(s string) int {
 	//Roman Numeral Table from 1 to 1000 in map
 	roman := map[byte]int{
 		'I': 1,
@@ -81,8 +81,8 @@ func romanToInt(s string) int {
 }
 
 func main() {
-	twoSums := twoSum([]int{2, 7, 11, 15}, 9)
-	// isPalindrome := isPalindrome(2222)
-	// romanToInt := romanToInt("MDCCCLXXXIV")
+	twoSums := TwoSum([]int{2, 7, 11, 15}, 9)
+	// IsPalindrome := isPalindrome(2222)
+	// RomanToInt := romanToInt("MDCCCLXXXIV")
 	fmt.Println(twoSums)
 }
