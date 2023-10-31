@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 // 1. TwoSums, Using Hashtable solution
-func TwoSum(nums []int, target int) []int {
+func twoSum(nums []int, target int) []int {
 	//Making hash table
 	/*
 		Hashtable :
@@ -27,7 +27,7 @@ func TwoSum(nums []int, target int) []int {
 }
 
 // 9. Palindrome Number, Getting each digit of x from last and compare it
-func IsPalindrome(x int) bool {
+func isPalindrome(x int) bool {
 	//negative number is guarantee not gonna be palindrome
 	if x < 0 {
 		return false
@@ -55,7 +55,7 @@ func IsPalindrome(x int) bool {
 }
 
 // 13. Roman to Integer
-func RomanToInt(s string) int {
+func romanToInt(s string) int {
 	//Roman Numeral Table from 1 to 1000 in map
 	roman := map[byte]int{
 		'I': 1,
@@ -80,9 +80,30 @@ func RomanToInt(s string) int {
 	return total
 }
 
+// 14. Longest Common Prefix
+func longestCommonPrefix(strs []string) string {
+	//if there is only 1 data in the array return the data because the prefix is that data
+	if len(strs) == 1 {
+		return strs[0]
+	}
+	//looping the first array as base string for the prefix
+	for i, v := range strs[0] {
+		//looping the array except the first one (index 0)
+		for j := 1; j <= len(strs)-1; j++ {
+			//if base string  index is larger or equal to the length of string of current string return the base string slice up to i from beginning
+			//if the current string slice i is not equal to base string value byte return the base string slice up to i from beginning
+			if i >= len(strs[j]) || strs[j][i] != byte(v) {
+				return strs[0][:i]
+			}
+		}
+	}
+	return strs[0]
+}
+
 func main() {
-	twoSums := TwoSum([]int{2, 7, 11, 15}, 9)
+	// twoSums := twoSum([]int{2, 7, 11, 15}, 9)
 	// IsPalindrome := isPalindrome(2222)
 	// RomanToInt := romanToInt("MDCCCLXXXIV")
-	fmt.Println(twoSums)
+	LongestCommonPrefix := longestCommonPrefix([]string{"abc", "ab", "abc"})
+	fmt.Println(LongestCommonPrefix)
 }
