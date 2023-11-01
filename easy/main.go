@@ -138,11 +138,86 @@ func isValid(s string) bool {
 	return len(openBracket) == 0
 }
 
+// 21. Merge Two Sorted Lists, Rewiring Next Solution
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	//if list 1 is nil then list 2 will guarantee be larger than list 1
+	if list1 == nil {
+		return list2
+	}
+	//if list 2 is nil then list 1 will guarantee be larger than list 2
+	if list2 == nil {
+		return list1
+	}
+	//if list 1 value below list 2 value, we keep the current list 1 value then change list 1 next value calling the function again with list 1 next and list 2 as parameter
+	if list1.Val < list2.Val {
+		list1.Next = mergeTwoLists(list1.Next, list2)
+		return list1
+	} else {
+		//if list 2 value below list 1 value, we keep the current list 2 value then change list 2 next value calling the function again with list 2 next and list 1 as parameter
+		list2.Next = mergeTwoLists(list1, list2.Next)
+		return list2
+	}
+
+	/*
+		Extra Explanation
+		Consider we have two linked list like this
+		List 1 : 1->2->3->5
+		List 2 : 1->3->4
+
+		First, we check list 1 value which is 1 with list 2 value which is also 1, Whatever value is below the other value we gonna keep it, in this case is any of them so we keep list 1 value
+
+		Second, Now since we keeping list 1 value now we go to the next value of list 1
+
+		List 1 : 1(keep)  2(current)->3->5
+		List 2 : 1(current)->3->4
+
+		Third, we now checking again both current value of the list, in this case List 2 value of 1 is win, so now we keep this value and go to the next value of list 2
+
+		List 1 : 1  2(current)->3->5
+						 ↓
+		List 2 : 1(keep) 3(current)->4
+
+		We know see how this is work, by comparing each current value and move the keep to the lowest value we compare, okay lets move to next step
+
+		Fourth,  we now checking again both current value of the list, in this case List 1 value of 2 is win, so now we keep this value and go to the next value of list 1
+
+		List 1 : 1  2(keep) 3(current)->5
+						 ↓  ↑
+		List 2 : 1 -> 3(current)->4
+
+		Fifth,  we now checking again both current value of the list, in this case its a tie so we keep List 1 value of 3, so now we keep this value and go to the next value of list 1
+
+		List 1 : 1  2->3(keep) 5(current)
+						 ↓  ↑
+		List 2 : 1 -> 3(current)->4
+
+		Sixth,  we now checking again both current value of the list, in this case List 2 value of 3 is win, so now we keep this value and go to the next value of list 2
+
+		List 1 : 1  2-> 3 5(current)
+						 ↓  ↑  ↓
+		List 2 : 1 -> 3(keep) 4(current)
+
+		Seventh, we now checking again both current value of the list, in this case List 2 value of 4 is win, so now we keep this value and go to the next value of list 2
+
+		List 1 : 1  2-> 3 5(current)
+						 ↓  ↑  ↓
+		List 2 : 1 -> 3->4
+
+		Eight, List 2 already reach the end of the linked list, since we already "rewiring" each value of the linked list and keeping only the lowest we can guarantee that List 1 and beyond will always be higher than List 2, so if any of the List reach null we can just return the other list
+
+		Hopefully, Me (in the future) and You understand how it works, its hard to explain in comment but theres always youtube video
+
+	*/
+}
+
 func main() {
 	// twoSums := twoSum([]int{2, 7, 11, 15}, 9)
 	// IsPalindrome := isPalindrome(2222)
 	// RomanToInt := romanToInt("MDCCCLXXXIV")
 	// LongestCommonPrefix := longestCommonPrefix([]string{"abc", "ab", "abc"})
-	isValid := isValid("()")
-	fmt.Println(isValid)
+	// isValid := isValid("()")
+	list1 := &ListNode{Val: 2, Next: nil}
+	list2 := &ListNode{Val: 1, Next: nil}
+	mergeTwoLists := mergeTwoLists(list1, list2)
+	fmt.Println(mergeTwoLists)
 }
